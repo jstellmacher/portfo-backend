@@ -1,3 +1,146 @@
+# Java and Spring Boot Overview
+
+## Java Basics
+
+### What is Java?
+Java is a widely-used, object-oriented programming language that is platform-independent. It is compiled into bytecode that runs on the Java Virtual Machine (JVM).
+
+### Core Concepts
+- **Classes and Objects:** Classes are blueprints for creating objects. Objects are instances of classes.
+- **Methods:** Functions defined inside a class that describe the behavior of objects.
+- **Inheritance:** Allows one class to inherit fields and methods from another.
+- **Polymorphism:** Methods can be overridden or overloaded, enabling different implementations of the same method name.
+
+### Example Java Class
+```java
+public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void celebrateBirthday() {
+        this.age++;
+    }
+}
+```
+
+## Spring Boot Basics
+
+### What is Spring Boot?
+Spring Boot is an extension of the Spring framework that simplifies the setup and development of new Spring applications. It provides auto-configuration, embedded servers, and production-ready features.
+
+### Core Components
+- **Application Class:** The entry point of a Spring Boot application, containing the `main` method.
+    ```java
+    @SpringBootApplication
+    public class PortfolioApplication {
+        public static void main(String[] args) {
+            SpringApplication.run(PortfolioApplication.class, args);
+        }
+    }
+    ```
+- **Controller:** Handles HTTP requests and responses.
+    ```java
+    @RestController
+    @RequestMapping("/api")
+    public class PortfolioController {
+        @GetMapping("/welcome")
+        public String welcome() {
+            return "Welcome to the Portfolio API!";
+        }
+    }
+    ```
+- **Service:** Contains business logic.
+- **Repository:** Responsible for data access.
+
+### `application.properties` File
+This file is used to configure various settings for your Spring Boot application, such as server ports, database configurations, and logging levels.
+
+#### Example Configurations
+- **Server Port:**
+    ```properties
+    server.port=8080
+    ```
+- **Database Configuration:**
+    ```properties
+    spring.datasource.url=jdbc:h2:mem:testdb
+    spring.datasource.username=sa
+    spring.datasource.password=password
+    spring.jpa.hibernate.ddl-auto=update
+    ```
+- **Logging Level:**
+    ```properties
+    logging.level.org.springframework=INFO
+    ```
+
+## Database Schema
+
+### Choosing a Schema
+- **Relational Database:** Use SQL databases like PostgreSQL, MySQL, or H2. Design your schema using tables and relationships to manage data effectively.
+- **Schema Design:** Define tables with appropriate columns, primary keys, and relationships. For a modern application, consider using normalized tables and indexing for performance.
+
+### Example Schema
+- **User Table:**
+    ```sql
+    CREATE TABLE User (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        email VARCHAR(100),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    ```
+- **Post Table:**
+    ```sql
+    CREATE TABLE Post (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES User(id),
+        title VARCHAR(255) NOT NULL,
+        content TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    ```
+
+## SQL Types
+- **PostgreSQL:** An advanced SQL database with strong data integrity features.
+- **MySQL:** A popular open-source SQL database known for its performance and reliability.
+- **H2:** An in-memory SQL database useful for development and testing.
+
+## Technologies Used
+- **Java:** Programming language for developing the backend.
+- **Spring Boot:** Framework for building and running the Java application.
+- **Gradle/Maven:** Build tools for managing dependencies and building the project.
+- **JPA/Hibernate:** ORM tools for database interaction.
+- **SQL:** Language for managing and querying relational databases.
+- **PostgreSQL/MySQL/H2:** SQL databases for storing application data.
+
+## How to Run
+
+1. **Run the Application:**
+   ```bash
+   ./gradlew bootRun
+   ```
+2. **Access the API:**
+   - Navigate to `http://localhost:8080/api/welcome` to see the welcome message.
+
+3. **Test Endpoints:**
+   - Use tools like Postman or your frontend to interact with the API endpoints.
+
+## Additional Resources
+- [Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+- [Java Documentation](https://docs.oracle.com/javase/8/docs/)
 
 ```
 portfo-backend
