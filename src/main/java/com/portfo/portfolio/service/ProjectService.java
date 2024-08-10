@@ -10,8 +10,12 @@ import java.util.Optional;
 
 @Service
 public class ProjectService {
+    private final ProjectRepository projectRepository;
+
     @Autowired
-    private ProjectRepository projectRepository;
+    public ProjectService(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
 
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
@@ -26,7 +30,9 @@ public class ProjectService {
     }
 
     public Project updateProject(Long id, Project projectDetails) {
-        Project project = projectRepository.findById(id).orElseThrow(() -> new RuntimeException("Project not found"));
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+        // Update fields with new details
         project.setTitle(projectDetails.getTitle());
         project.setDescription(projectDetails.getDescription());
         project.setUrl(projectDetails.getUrl());
@@ -35,6 +41,9 @@ public class ProjectService {
     }
 
     public void deleteProject(Long id) {
+        if (!projectRepository.existsById(id)) {
+            throw new RuntimeException("Project not found");
+        }
         projectRepository.deleteById(id);
     }
 }
