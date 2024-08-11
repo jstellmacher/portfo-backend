@@ -19,22 +19,15 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
-
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.postgresql:postgresql:42.5.4'
-
-    runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
-
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -43,7 +36,7 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
 bootJar {
     mainClass.set('com.portfo.portfolio.PortfolioApplication')  // Update to your main class name
 }
-
